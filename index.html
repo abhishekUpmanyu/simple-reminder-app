@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="description" content="A basic reminder app created using vanilla HTML CSS and JavaScript">
+    <meta name="tags" content="HTML, CSS, JavaScript, Reminder, Vanilla, Basic, App">
+    <meta name="author" content="Abhishek Upmanyu">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Roboto+Serif:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:wght@600&family=Roboto:wght@300;600&display=swap" rel="stylesheet">
+    <title>
+        Reminder App
+    </title>
+</head>
+<body>
+    <div id="pop-up-container">
+        <div id="pop-up">
+            <h2>
+                New Reminder
+            </h2>
+            <input type="text" placeholder="Title" id="reminder-title-field"><br>
+            <input type="text" placeholder="Description" id="reminder-description-field"><br>
+            <input type="datetime-local">
+            <button type="button" id="submit-new-reminder-button">
+                Add
+            </button>
+        </div>
+    </div>
+    <div id="no-reminder-message-container">
+        <div id="add-reminder-button">
+            +
+        </div>
+        <h2>No Reminders!</h2>
+        You don't seem to have added any reminders
+    </div>
+    <div id="app-flex">
+        <div id="title-time-section">
+            <h1>
+                Reminders
+            </h1>
+            <h2 id="big-time"></h2>
+        </div>
+        <div id="reminders-crud-section">
+            <div id="crud-container">
+                <div class="crud-button">
+                    <input type="checkbox">
+                </div>
+                <div class="crud-button" id="new-reminder-button">
+                    + New Reminder
+                </div>
+                <div class="crud-button" id="delete-button">
+                    <img class="icon-button" src="assets/images/delete.png">
+                </div>
+            </div>
+            <div id="reminders-container">
+                <div class="reminder">
+                    <div class="reminder-head-row">
+                        <div class="reminder-lead-flex">
+                            <input type="checkbox" class="reminder-checkbox">
+                            <div class="reminder-title">
+                                Reminder 1
+                            </div>
+                        </div>
+                        <div class="reminder-trail-flex">
+                            <div class="reminder-date-time">
+                                10:20PM
+                            </div>
+                            <div>
+                                Delete
+                            </div>
+                        </div>
+                    </div>
+                    <p class="reminder-description">
+                        Reminder description here!!!
+                    </p>
+                    <hr>
+                </div>
+                <div class="reminder">
+                    <div class="reminder-head-row">
+                        <div class="reminder-lead-flex">
+                            <input type="checkbox" class="reminder-checkbox">
+                            <div class="reminder-title">
+                                Reminder 2
+                            </div>
+                        </div>
+                        <div class="reminder-trail-flex">
+                            <div class="reminder-date-time">
+                                10:20PM
+                            </div>
+                            <div>
+                                Delete
+                            </div>
+                        </div>
+                    </div>
+                    <p class="reminder-description">
+                        Reminder description here!!!
+                    </p>
+                    <hr>
+                </div><div class="reminder">
+                    <div class="reminder-head-row">
+                        <div class="reminder-lead-flex">
+                            <input type="checkbox" class="reminder-checkbox">
+                            <div class="reminder-title">
+                                Reminder 3
+                            </div>
+                        </div>
+                        <div class="reminder-trail-flex">
+                            <div class="reminder-date-time">
+                                10:20PM
+                            </div>
+                            <div>
+                                Delete
+                            </div>
+                        </div>
+                    </div>
+                    <p class="reminder-description">
+                        Reminder description here!!!
+                    </p>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="scripts.js"></script>
+</body>
+</html>
