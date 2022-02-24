@@ -1,9 +1,15 @@
+import RemindersRepository from "./RemindersRepository.js";
+
 export default class RemindersListBinding {
     constructor (element) {
         this.listElement = element;
+        this.remindersRepository = RemindersRepository.getInstance();
     }
 
-    addReminder (reminder) {
+    addReminder(index) {
+        // Getting the Reminder from Repository
+        var reminder = this.remindersRepository.getReminderAtIndex(index);
+
         // Creating Elements
         var container = document.createElement('div');
         container.className = 'reminder';
@@ -27,19 +33,37 @@ export default class RemindersListBinding {
 
         var dateTime = document.createElement('div');
         dateTime.className = 'reminder-date-time';
-        dateTime.innerHTML = reminder.dateTime;
+        dateTime.innerHTML = `${reminder.dateTime.getHours().toString().padStart(2, '0')}:${reminder.dateTime.getMinutes().toString().padStart(2, '0')}`;
+
+        var editButton = document.createElement('div');
+        editButton.id = 'inline-edit-button';
+        editButton.onclick = this.updateReminder(this, container);
+
+        var editIcon = document.createElement('img');
+        editIcon.className = 'inline-icon-button';
+        editIcon.src = 'assets/images/edit.png';
 
         var deleteButton = document.createElement('div');
+        deleteButton.id = 'inline-delete-button';
+        deleteButton.onclick = this.deleteReminder.bind(this, container);
+
+        var deleteIcon = document.createElement('img');
+        deleteIcon.className = 'inline-icon-button';
+        deleteIcon.src = 'assets/images/delete.png';
 
         var description = document.createElement('p');
         description.className = 'reminder-description';
         description.innerHTML = reminder.description;
 
         // Creating Heirarchy for Elements
+        editButton.appendChild(editIcon);
+        deleteButton.appendChild(deleteIcon);
+
         leadFlex.appendChild(checkbox);
         leadFlex.appendChild(title);
 
         trailFlex.appendChild(dateTime);
+        trailFlex.appendChild(editButton);
         trailFlex.appendChild(deleteButton);
 
         headRow.appendChild(leadFlex);
@@ -49,14 +73,29 @@ export default class RemindersListBinding {
         container.appendChild(description);
         container.appendChild(document.createElement('hr'));
 
-        // Appending the reminder
-        this.listElement.appendChild(container);
+        // Inserting the Reminder Element
+        this.listElement.insertBefore(container, this.listElement.children[index]);
     }
 
-    updateReminder(index, reminder) {
-        var reminderContainer = this.listElement.children[index];
-        reminderContainer.children[0][0][1].innerHTML = reminder.title;
-        reminderContainer.childred[0][1][0].innerHTML = reminder.dateTime;
-        reminderContainer.children[1].innerHTML = reminder.description;
+    updateReminder(elem) {
+        console.log(elem);
+        // elem.children[0][0][1].innerHTML = reminder.title;
+        // elem.childred[0][1][0].innerHTML = reminder.dateTime;
+        // elem.children[1].innerHTML = reminder.description;
+    }
+
+    deleteReminder(elem) {
+        elem.parentNode.removeChild(elem);
+    }
+
+    updateAllSelections() {
+        var reminders = this.remindersRepository.getReminders();
+        for (let i=0; i<reminders.length; ++i) {
+            this.listElement.children[i].children[0].children[0].children[0].checked = reminders[i].selected;
+        }
+    }
+
+    deleteSelected() {
+
     }
 }

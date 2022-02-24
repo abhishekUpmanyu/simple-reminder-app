@@ -3,6 +3,7 @@ body {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     font-weight: 300;
+    margin: 0px;
 }
 
 h1 {
@@ -20,21 +21,22 @@ h2 {
 
 #pop-up-container {
     display: none;
-    position: absolute;
+    position: fixed;
     height: 100%;
     width: 100%;
+    margin: 0px !important;
     background-color: rgba(0, 0, 0, 0.4);
-    z-index: 10;
+    z-index: 2;
 }
 
 #pop-up {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 30%;
     background-color: #ffffff;
-    border-radius: 24px;
+    border-radius: 16px;
     padding: 24px;
 
 }
@@ -130,10 +132,19 @@ h2 {
     background-color: #ff0000;
 }
 
+#inline-delete-button {
+    filter: invert(17%) sepia(85%) saturate(7415%) hue-rotate(4deg) brightness(97%) contrast(119%);
+}
+
 .icon-button {
     height: 24px;
     width: 24px;
     filter: invert();
+}
+
+.inline-icon-button {
+    height: 24px;
+    width: 24px;
 }
 
 #reminders-container {
@@ -172,6 +183,8 @@ h2 {
 .reminder-trail-flex {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    column-gap: 16px;
 }
 
 .reminder-date-time {
@@ -181,5 +194,14 @@ h2 {
 }
 
 .reminder-description {
+    font-family: 'Roboto', sans-serif;
+}
 
+@media (max-width: 760px) {
+    #app-flex {
+        flex-direction: column;
+    }
+    #pop-up {
+        width: 75%;
+    }
 }

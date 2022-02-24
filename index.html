@@ -22,7 +22,7 @@
             </h2>
             <input type="text" placeholder="Title" id="reminder-title-field"><br>
             <input type="text" placeholder="Description" id="reminder-description-field"><br>
-            <input type="datetime-local">
+            <input type="datetime-local" id="reminder-date-time-field"><br>
             <button type="button" id="submit-new-reminder-button">
                 Add
             </button>
@@ -45,7 +45,7 @@
         <div id="reminders-crud-section">
             <div id="crud-container">
                 <div class="crud-button">
-                    <input type="checkbox">
+                    <input type="checkbox" id="select-all-checkbox">
                 </div>
                 <div class="crud-button" id="new-reminder-button">
                     + New Reminder
@@ -55,7 +55,7 @@
                 </div>
             </div>
             <div id="reminders-container">
-                <div class="reminder">
+                <!-- <div class="reminder">
                     <div class="reminder-head-row">
                         <div class="reminder-lead-flex">
                             <input type="checkbox" class="reminder-checkbox">
@@ -77,49 +77,11 @@
                     </p>
                     <hr>
                 </div>
-                <div class="reminder">
-                    <div class="reminder-head-row">
-                        <div class="reminder-lead-flex">
-                            <input type="checkbox" class="reminder-checkbox">
-                            <div class="reminder-title">
-                                Reminder 2
-                            </div>
-                        </div>
-                        <div class="reminder-trail-flex">
-                            <div class="reminder-date-time">
-                                10:20PM
-                            </div>
-                            <div>
-                                Delete
-                            </div>
-                        </div>
-                    </div>
                     <p class="reminder-description">
                         Reminder description here!!!
                     </p>
                     <hr>
-                </div><div class="reminder">
-                    <div class="reminder-head-row">
-                        <div class="reminder-lead-flex">
-                            <input type="checkbox" class="reminder-checkbox">
-                            <div class="reminder-title">
-                                Reminder 3
-                            </div>
-                        </div>
-                        <div class="reminder-trail-flex">
-                            <div class="reminder-date-time">
-                                10:20PM
-                            </div>
-                            <div>
-                                Delete
-                            </div>
-                        </div>
-                    </div>
-                    <p class="reminder-description">
-                        Reminder description here!!!
-                    </p>
-                    <hr>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
