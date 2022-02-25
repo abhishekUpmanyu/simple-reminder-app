@@ -68,7 +68,8 @@ export default class RemindersListBinding {
         container.appendChild(document.createElement('hr'));
 
         // Inserting the Reminder Element
-        this.listElement.insertBefore(container, this.listElement.children[index+1]);
+        // this.listElement.insertBefore(container, this.listElement.children[index+1]);
+        this.listElement.appendChild(container);
     }
 
     updateReminder(elem) {

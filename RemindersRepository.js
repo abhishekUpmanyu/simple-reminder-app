@@ -12,14 +12,16 @@ var RemindersRepository = (function () {
                     return reminders[index];
                 },
                 addReminder: function (reminder) {
-                    var i = 0;
-                    for (i=0; i<reminders.length-1; ++i) {
-                        if ((reminders[i].dateTime.getTime() < reminder.dateTime.getTime()) && (reminder.dateTime.getTime() <= reminders[i+1].dateTime.getTime())) {
-                            break;
-                        }
-                    }
-                    reminders.splice(i, 0, reminder);
-                    return i;
+                    // var i = 0;
+                    // for (i=0; i<reminders.length-1; ++i) {
+                    //     if ((reminders[i].dateTime.getTime() < reminder.dateTime.getTime()) && (reminder.dateTime.getTime() <= reminders[i+1].dateTime.getTime())) {
+                    //         break;
+                    //     }
+                    // }
+                    // reminders.splice(i, 0, reminder);
+                    // return i;
+                    reminders.push(reminder);
+                    return reminders.length-1;
                 },
                 editReminder: function (reminder, index) {
                     reminders.splice(index, 1, reminder);

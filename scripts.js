@@ -57,6 +57,7 @@ function addReminder() {
 
     // Adding Reminder to Repository
     var index = remindersRepository.addReminder(reminder);
+    console.log(index, remindersRepository.getReminders());
     remindersListBinding.addReminder(reminder, index);
     titleElement.value = '';
     descriptionElement.value = '';
