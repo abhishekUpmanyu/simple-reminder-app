@@ -24,8 +24,11 @@ var RemindersRepository = (function () {
                 editReminder: function (reminder, index) {
                     reminders.splice(index, 1, reminder);
                 },
-                deleteReminder: function (index) {
+                deleteReminder: function (reminder) {
+                    var index = reminders.indexOf(reminder);
+                    console.log(index, reminders, reminder);
                     reminders.splice(index, 1);
+                    return index;
                 },
                 toggleReminderSelection: function (index, value) {
                     reminders[index].selected = value;

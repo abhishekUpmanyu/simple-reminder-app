@@ -1,12 +1,14 @@
 export default class Reminder {
-    constructor (_uuid, _title, _description, _dateTime, _selected=false, _onTimeout) {
+    constructor (_uuid, _title, _description, _dateTime, _selected=false) {
         this.uid = _uuid;
         this.title = _title;
         this.description = _description;
         this.dateTime = _dateTime;
         this.selected = _selected;
-        this.onTimeout = _onTimeout;
-        this.timeout = setTimeout(onTimeout, this.dateTime.getTime()-(new Date().getTime()));
+        this.onTimeout = function() {};
+        this.onDismiss = function() {};
+        this.onUpdate = function() {};
+        this.onDelete = function() {};
     }
 
     clearCurrentTimeout() {

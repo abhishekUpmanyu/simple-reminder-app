@@ -1,15 +1,9 @@
-import RemindersRepository from "./RemindersRepository.js";
-
 export default class RemindersListBinding {
-    constructor (element) {
+    constructor(element) {
         this.listElement = element;
-        this.remindersRepository = RemindersRepository.getInstance();
     }
 
-    addReminder(index) {
-        // Getting the Reminder from Repository
-        var reminder = this.remindersRepository.getReminderAtIndex(index);
-
+    addReminder(reminder, index) {
         // Creating Elements
         var container = document.createElement('div');
         container.className = 'reminder';
@@ -37,7 +31,7 @@ export default class RemindersListBinding {
 
         var editButton = document.createElement('div');
         editButton.id = 'inline-edit-button';
-        editButton.onclick = this.updateReminder(this, container);
+        editButton.onclick = reminder.onUpdate;
 
         var editIcon = document.createElement('img');
         editIcon.className = 'inline-icon-button';
@@ -45,7 +39,7 @@ export default class RemindersListBinding {
 
         var deleteButton = document.createElement('div');
         deleteButton.id = 'inline-delete-button';
-        deleteButton.onclick = this.deleteReminder.bind(this, container);
+        deleteButton.onclick = reminder.onDelete;
 
         var deleteIcon = document.createElement('img');
         deleteIcon.className = 'inline-icon-button';
@@ -74,7 +68,7 @@ export default class RemindersListBinding {
         container.appendChild(document.createElement('hr'));
 
         // Inserting the Reminder Element
-        this.listElement.insertBefore(container, this.listElement.children[index]);
+        this.listElement.insertBefore(container, this.listElement.children[index+1]);
     }
 
     updateReminder(elem) {
@@ -85,17 +79,25 @@ export default class RemindersListBinding {
     }
 
     deleteReminder(elem) {
-        elem.parentNode.removeChild(elem);
+        elem.remove();
     }
 
-    updateAllSelections() {
-        var reminders = this.remindersRepository.getReminders();
+    deleteReminderAtIndex(index) {
+        console.log(index, this.listElement.children[index]);
+        this.listElement.children[index].remove();
+    }
+
+    updateAllSelections(reminders) {
         for (let i=0; i<reminders.length; ++i) {
             this.listElement.children[i].children[0].children[0].children[0].checked = reminders[i].selected;
         }
     }
 
     deleteSelected() {
-
+        for (let child of this.listElement.children) {
+            if (child.children[0].children[0].children[0].checked) {
+                this.deleteReminder(child);
+            }
+        }
     }
 }
