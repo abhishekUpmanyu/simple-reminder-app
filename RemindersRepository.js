@@ -23,8 +23,12 @@ var RemindersRepository = (function () {
                     reminders.push(reminder);
                     return reminders.length-1;
                 },
-                editReminder: function (reminder, index) {
-                    reminders.splice(index, 1, reminder);
+                editReminder: function (reminder, newTitle, newDescription, newDateTime) {
+                    var index = reminders.indexOf(reminder);
+                    reminders[index].title = newTitle;
+                    reminders[index].description = newDescription;
+                    reminders[index].dateTime = newDateTime;
+                    return index;
                 },
                 deleteReminder: function (reminder) {
                     var index = reminders.indexOf(reminder);

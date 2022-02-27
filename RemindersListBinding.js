@@ -72,11 +72,10 @@ export default class RemindersListBinding {
         this.listElement.appendChild(container);
     }
 
-    updateReminder(elem) {
-        console.log(elem);
-        // elem.children[0][0][1].innerHTML = reminder.title;
-        // elem.childred[0][1][0].innerHTML = reminder.dateTime;
-        // elem.children[1].innerHTML = reminder.description;
+    updateReminder(reminder, index) {
+        this.listElement.children[index].children[0].children[0].children[1].innerHTML = reminder.title;
+        this.listElement.children[index].children[0].children[1].children[0].innerHTML = reminder.dateTime;
+        this.listElement.children[index].children[1].innerHTML = reminder.description;
     }
 
     deleteReminder(elem) {
@@ -95,9 +94,11 @@ export default class RemindersListBinding {
     }
 
     deleteSelected() {
+        console.log('outside loop', this.listElement.children, this.listElement);
         for (let child of this.listElement.children) {
+            console.log('inside loop',child, child.children[0].children[0].children[0].checked);
             if (child.children[0].children[0].children[0].checked) {
-                this.deleteReminder(child);
+                setTimeout(this.deleteReminder.bind(this, child), 0);
             }
         }
     }

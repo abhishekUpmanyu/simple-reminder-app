@@ -37,6 +37,13 @@ function addReminder() {
     var onUpdate = (function (reminder) {
         return function () {
             reminderPopUpBinding.showAddReminderPopUp(reminder);
+            document.getElementById('submit-new-reminder-button').onclick = function () {
+                var update = function () {
+                    var index = remindersRepository.editReminder(reminder, newTitle, newDescription, newDateTime);
+                    remindersListBinding.updateReminder(remindersRepository.getReminderAtIndex(index), index);
+                }
+                reminderPopUpBinding.showAddReminderPopUp(reminder, update);
+            };
         }
     })(reminder);
     var onDelete = (function (reminder) {
@@ -131,10 +138,10 @@ setInterval(refreshTime, 1000);
 // Binding Events
 (function () {
     var closeAddReminderPopUp = document.getElementById('close-add-reminder-pop-up');
-    closeAddReminderPopUp.onclick = hideAddReminderPopUp;
+    closeAddReminderPopUp.onclick = reminderPopUpBinding.dismissAddReminderPopUp;
 
     var addReminderButton = document.getElementById('add-reminder-button');
-    addReminderButton.addEventListener('click', showAddReminderPopUp, false);
+    addReminderButton.onclick = reminderPopUpBinding.showAddReminderPopUp;
 
     var selectAllCheckbox = document.getElementById('select-all-checkbox');
     selectAllCheckbox.addEventListener('change', function () {
@@ -143,7 +150,7 @@ setInterval(refreshTime, 1000);
     }, false)
 
     var newReminderButton = document.getElementById('new-reminder-button');
-    newReminderButton.addEventListener('click', showAddReminderPopUp, false);
+    newReminderButton.onclick = reminderPopUpBinding.showAddReminderPopUp;
 
     var deleteSelectedButton = document.getElementById('delete-selected-button');
     deleteSelectedButton.addEventListener('click', function () {

@@ -3,6 +3,7 @@ export default class ReminderPopUpBinding {
         this.audio = new Audio('assets/audio/notification.mp3');
         this.reminderPopUpContainer = document.getElementById('reminder-pop-up-container');
         this.popUpContainer = document.getElementById('pop-up-container');
+        console.log(this.popUpContainer);
     }
 
     showReminderPopUp(reminder) {
@@ -22,15 +23,19 @@ export default class ReminderPopUpBinding {
         this.reminderPopUpContainer.style.display = 'none';
     }
 
-    showAddReminderPopUp(title='', description='') {
-        document.getElementById('reminder-title-field') = title;
-        document.getElementById('reminder-description-field') = description;
-        this.popUpContainer.style.display = 'block';
+    showAddReminderPopUp(reminder) {
+        document.getElementById('reminder-title-field').value = (reminder && reminder.title) || '';
+        document.getElementById('reminder-description-field').value = (reminder && reminder.description) || '';
+        document.getElementById('reminder-date-time-field').min = new Date().toISOString().slice(0, 16);
+        document.getElementById('pop-up-container').style.display = 'block';
+        // this.popUpContainer.style.display = 'block';
     }
 
     dismissAddReminderPopUp() {
-        document.getElementById('reminder-title-field') = '';
-        document.getElementById('reminder-description-field') = '';
-        this.popUpContainer.style.display = 'none';
+        document.getElementById('reminder-title-field').innerHTML = '';
+        document.getElementById('reminder-description-field').innerHTML = '';
+        document.getElementById('reminder-date-time-field').value = '';
+        document.getElementById('pop-up-container').style.display = 'none';
+        // this.popUpContainer.style.display = 'none';
     }
 }
