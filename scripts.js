@@ -36,14 +36,13 @@ function addReminder() {
     })(reminder);
     var onUpdate = (function (reminder) {
         return function () {
-            reminderPopUpBinding.showAddReminderPopUp(reminder);
-            document.getElementById('submit-new-reminder-button').onclick = function () {
-                var update = function () {
-                    var index = remindersRepository.editReminder(reminder, newTitle, newDescription, newDateTime);
+            var update = (function (reminder) {
+                return function () {
+                    var index = remindersRepository.editReminder(reminder);
                     remindersListBinding.updateReminder(remindersRepository.getReminderAtIndex(index), index);
-                }
-                reminderPopUpBinding.showAddReminderPopUp(reminder, update);
-            };
+                };
+            })(reminder);
+            reminderPopUpBinding.showEditReminderPopUp(reminder, update);
         }
     })(reminder);
     var onDelete = (function (reminder) {
@@ -69,25 +68,15 @@ function addReminder() {
     titleElement.value = '';
     descriptionElement.value = '';
     dateTimeElement.value = '';
-    hideAddReminderPopUp();
+    reminderPopUpBinding.dismissAddReminderPopUp();
     showReminders();
-}
-
-function editReminder() {
-    showAddReminderPopUp();
-}
-
-function deleteReminder() {
-    if (remindersRepository.getReminders().length===0) {
-
-    }
 }
 
 // UI Functions
 function showNoReminders() {
     var appFlex = document.getElementById('app-flex');
     var noReminderMessageContainer = document.getElementById('no-reminder-message-container');
-    if (appFlex.style.display==='none' && noReminderMessageContainer.style.display==='flex') return;
+    if (appFlex.style.display === 'none' && noReminderMessageContainer.style.display === 'flex') return;
     appFlex.style.display = 'none';
     noReminderMessageContainer.style.display = 'flex';
 }
@@ -95,19 +84,9 @@ function showNoReminders() {
 function showReminders() {
     var appFlex = document.getElementById('app-flex');
     var noReminderMessageContainer = document.getElementById('no-reminder-message-container');
-    if (appFlex.style.display==='flex' && noReminderMessageContainer.style.display==='none') return;
+    if (appFlex.style.display === 'flex' && noReminderMessageContainer.style.display === 'none') return;
     appFlex.style.display = 'flex';
     noReminderMessageContainer.style.display = 'none';
-}
-
-function showAddReminderPopUp(title='', description='') {
-    var popUp = document.getElementById('pop-up-container');
-    popUp.style.display = 'block';
-}
-
-function hideAddReminderPopUp() {
-    var popUp = document.getElementById('pop-up-container');
-    popUp.style.display = 'none';
 }
 
 function refreshTime() {
@@ -121,7 +100,7 @@ function refreshTime() {
 }
 
 function refreshUI() {
-    if (remindersRepository.getReminders().length===0) {
+    if (remindersRepository.getReminders().length === 0) {
         showNoReminders();
     } else {
         showReminders();
@@ -140,8 +119,15 @@ setInterval(refreshTime, 1000);
     var closeAddReminderPopUp = document.getElementById('close-add-reminder-pop-up');
     closeAddReminderPopUp.onclick = reminderPopUpBinding.dismissAddReminderPopUp;
 
+    var closeEditReminderPopUp = document.getElementById('close-edit-reminder-pop-up');
+    closeEditReminderPopUp.onclick = reminderPopUpBinding.dismissEditReminderPopUp;
+
     var addReminderButton = document.getElementById('add-reminder-button');
-    addReminderButton.onclick = reminderPopUpBinding.showAddReminderPopUp;
+    addReminderButton.onclick = (function (onSubmit) {
+        return function () {
+            reminderPopUpBinding.showAddReminderPopUp(onSubmit);
+        }
+    })(addReminder);
 
     var selectAllCheckbox = document.getElementById('select-all-checkbox');
     selectAllCheckbox.addEventListener('change', function () {
@@ -150,11 +136,17 @@ setInterval(refreshTime, 1000);
     }, false)
 
     var newReminderButton = document.getElementById('new-reminder-button');
-    newReminderButton.onclick = reminderPopUpBinding.showAddReminderPopUp;
+    newReminderButton.onclick = (function (onSubmit) {
+        return function () {
+            reminderPopUpBinding.showAddReminderPopUp(onSubmit);
+        }
+    })(addReminder);
 
     var deleteSelectedButton = document.getElementById('delete-selected-button');
     deleteSelectedButton.addEventListener('click', function () {
         remindersListBinding.deleteSelected();
+        remindersRepository.deleteSelected();
+        refreshUI();
     }, false);
 
     var submitNewReminderButton = document.getElementById('submit-new-reminder-button');

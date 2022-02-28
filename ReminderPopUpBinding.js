@@ -23,19 +23,35 @@ export default class ReminderPopUpBinding {
         this.reminderPopUpContainer.style.display = 'none';
     }
 
-    showAddReminderPopUp(reminder) {
-        document.getElementById('reminder-title-field').value = (reminder && reminder.title) || '';
-        document.getElementById('reminder-description-field').value = (reminder && reminder.description) || '';
+    showAddReminderPopUp() {
+        document.getElementById('reminder-title-field').value = '';
+        document.getElementById('reminder-description-field').value = '';
         document.getElementById('reminder-date-time-field').min = new Date().toISOString().slice(0, 16);
         document.getElementById('pop-up-container').style.display = 'block';
         // this.popUpContainer.style.display = 'block';
     }
 
     dismissAddReminderPopUp() {
-        document.getElementById('reminder-title-field').innerHTML = '';
-        document.getElementById('reminder-description-field').innerHTML = '';
+        document.getElementById('reminder-title-field').value = '';
+        document.getElementById('reminder-description-field').value = '';
         document.getElementById('reminder-date-time-field').value = '';
         document.getElementById('pop-up-container').style.display = 'none';
+        // this.popUpContainer.style.display = 'none';
+    }
+
+    showEditReminderPopUp(reminder, onUpdate) {
+        document.getElementById('edit-reminder-title-field').value = reminder.title;
+        document.getElementById('edit-reminder-description-field').value = reminder.description;
+        document.getElementById('edit-reminder-date-time-field').value = reminder.dateTime.toISOString().slice(0, 16);
+        document.getElementById('update-reminder-button').onclick = onUpdate;
+        document.getElementById('edit-pop-up-container').style.display = 'block';
+    }
+
+    dismissEditReminderPopUp() {
+        document.getElementById('edit-reminder-title-field').innerHTML = '';
+        document.getElementById('edit-reminder-description-field').innerHTML = '';
+        document.getElementById('edit-reminder-date-time-field').value = '';
+        document.getElementById('edit-pop-up-container').style.display = 'none';
         // this.popUpContainer.style.display = 'none';
     }
 }
