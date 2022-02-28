@@ -27,7 +27,7 @@ export default class RemindersListBinding {
 
         var dateTime = document.createElement('div');
         dateTime.className = 'reminder-date-time';
-        dateTime.innerHTML = `${reminder.dateTime.getDate()}/${reminder.dateTime.getMonth()}/${reminder.dateTime.getFullYear()}<br>${reminder.dateTime.getHours().toString().padStart(2, '0')}:${reminder.dateTime.getMinutes().toString().padStart(2, '0')}`;
+        dateTime.innerHTML = `${reminder.dateTime.getDate()}/${reminder.dateTime.getMonth()+1}/${reminder.dateTime.getFullYear()}<br>${reminder.dateTime.getHours().toString().padStart(2, '0')}:${reminder.dateTime.getMinutes().toString().padStart(2, '0')}`;
 
         var editButton = document.createElement('div');
         editButton.id = 'inline-edit-button';
@@ -68,13 +68,13 @@ export default class RemindersListBinding {
         container.appendChild(document.createElement('hr'));
 
         // Inserting the Reminder Element
-        // this.listElement.insertBefore(container, this.listElement.children[index+1]);
-        this.listElement.appendChild(container);
+        this.listElement.insertBefore(container, this.listElement.children[index]);
+        // this.listElement.appendChild(container);
     }
 
     updateReminder(reminder, index) {
         this.listElement.children[index].children[0].children[0].children[1].innerHTML = reminder.title;
-        this.listElement.children[index].children[0].children[1].children[0].innerHTML = `${reminder.dateTime.getDate()}/${reminder.dateTime.getMonth()}/${reminder.dateTime.getFullYear()}<br>${reminder.dateTime.getHours().toString().padStart(2, '0')}:${reminder.dateTime.getMinutes().toString().padStart(2, '0')}`;
+        this.listElement.children[index].children[0].children[1].children[0].innerHTML = `${reminder.dateTime.getDate()}/${reminder.dateTime.getMonth()+1}/${reminder.dateTime.getFullYear()}<br>${reminder.dateTime.getHours().toString().padStart(2, '0')}:${reminder.dateTime.getMinutes().toString().padStart(2, '0')}`;
         this.listElement.children[index].children[1].innerHTML = reminder.description;
     }
 
